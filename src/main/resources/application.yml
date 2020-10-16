@@ -1,0 +1,6 @@
+kafka-demo:
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    consumer:
+      group-id: kafka-demo
+      auto-offset-reset: earliest
