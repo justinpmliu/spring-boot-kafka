@@ -1,6 +1,38 @@
-kafka-demo:
+jasypt:
+  encryptor:
+    algorithm: PBEWITHSHA1ANDDESEDE
+    keyObtentionIterations: 10000
+
+kafka:
+  username: client
+  password: ENC(KFIUBYKiPQAsnP2SHYQra8eIgMh8tc09)
+
+spring:
   kafka:
-    bootstrap-servers: 127.0.0.1:9092
+    producer:
+      bootstrap-servers: localhost:9091,localhost:9092,localhost:9093
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        sasl.mechanism: PLAIN
+        security.protocol: SASL_SSL
+        sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username=${kafka.username} password=${kafka.password};
+        ssl.endpoint.identification.algorithm: ''
+      ssl:
+        trust-store-location: file:/var/ssl/kafka/truststore.jks
+        trust-store-password: ENC(orx1+D5C5Asb8Pt58gZW1GYnHxyAxBWu)
     consumer:
+      bootstrap-servers: localhost:9091,localhost:9092,localhost:9093
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        sasl.mechanism: PLAIN
+        security.protocol: SASL_SSL
+        sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username=${kafka.username} password=${kafka.password};
+        ssl.endpoint.identification.algorithm: ''
       group-id: kafka-demo
+      ssl:
+        trust-store-location: file:/var/ssl/kafka/truststore.jks
+        trust-store-password: ENC(orx1+D5C5Asb8Pt58gZW1GYnHxyAxBWu)
       auto-offset-reset: earliest
+      enable-auto-commit: false

@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 public class KafkaConsumer {
 
-    @KafkaListener(topics = "first_topic", containerFactory = "batchFactory")
+    @KafkaListener(topics = "app.test", containerFactory = "batchFactory")
     public void listen(List<ConsumerRecord<String, String>> records, Consumer consumer) {
         if (!records.isEmpty()) {
             log.info("record count: {}", records.size());
