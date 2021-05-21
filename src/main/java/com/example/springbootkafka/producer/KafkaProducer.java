@@ -24,16 +24,12 @@ public class KafkaProducer {
         future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
             @Override
             public void onSuccess(SendResult<String, String> result) {
-                log.info("Message [{}] delivered with offset {}",
-                        message,
-                        result.getRecordMetadata().offset());
+                log.info("Message [{}] delivered with offset {}", message, result.getRecordMetadata().offset());
             }
 
             @Override
             public void onFailure(Throwable ex) {
-                log.warn("Unable to deliver message [{}]. {}",
-                        message,
-                        ex.getMessage());
+                log.warn("Unable to deliver message [{}]. {}", message, ex.getMessage());
             }
         });
     }
